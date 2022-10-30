@@ -23,18 +23,19 @@ import java.util.UUID;
 public class GoodsController {
     @Autowired
     private GoodsServiceImpl goodsService;
+
     /*
         获取商品列表
     */
     @ResponseBody
     @RequestMapping(value = "/getGoodsList")
     public Map getGoodsList() {
-        List<Goods> GoodsList=goodsService.getGoodsList();
+        List<Goods> GoodsList = goodsService.getGoodsList();
 
         //返回结果用
         Map<Object, Object> map = new HashMap<>();
         map.put("code", "200");
-        map.put("data",GoodsList);
+        map.put("data", GoodsList);
         return map;
     }
 }
