@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.demo.dao.WxUserMapper">
+    <select id="queryByOpenId" resultType="WxUser">
+        select *
+        from user
+        where OpenID = #{openID}
+    </select>
+
+    <insert id="insertUser" parameterType="WxUser">
+        insert into user (ID,
+                          UserName,
+                          AvatarUrl,
+                          StudyState,
+                          State,
+                          StudyTime,
+                          DefTime,
+                          FirstLoginTime,
+                          LastLoginTime)
+        values (#{OpenID},
+                #{UserName},
+                #{AvatarUrl},
+                #{StudyState},
+                #{State},
+                #{StudyTime},
+                #{DefTime},
+                #{FirstLoginTime},
+                #{LastLoginTime})
+    </insert>
+
+    <update id="updateUser" parameterType="WxUser">
+        update user
+        <set>
+            <if test="UserName != null">`UserName` = #{UserName},</if>
+            <if test="AvatarUrl != null">`AvatarUrl` = #{AvatarUrl},</if>
+            <if test="StudyState != null">`StudyState` = #{StudyState},</if>
+            <if test="DefTime != null">`DefTime` = #{DefTime},</if>
+            <if test="StudyTime != null">`StudyTime` = #{StudyTime},</if>
+            <if test="State != null">`State` = #{State},</if>
+            `Name` = #{Name},
+            `CardID` = #{CardID},
+            <if test="LastLoginTime != null">`LastLoginTime` = #{LastLoginTime}</if>
+        </set>
+        where OpenID = #{openID}
+    </update>
+
+</mapper>
