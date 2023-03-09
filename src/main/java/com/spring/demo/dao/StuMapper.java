@@ -4,6 +4,7 @@ import com.spring.demo.bean.Student;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,4 +19,8 @@ public interface StuMapper {
     Student selectStu(Student stu);
 
     List<Student> selectStuAll();
+
+    int deleteStu(ArrayList<Object> list);
+
+    List<Student> selectOneStu(String stuID);
 }

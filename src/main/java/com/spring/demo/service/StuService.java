@@ -2,6 +2,7 @@ package com.spring.demo.service;
 
 import com.spring.demo.bean.Student;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -14,4 +15,8 @@ public interface StuService {
     Student selectStu(Student stu);
 
     List<Student> selectStuAll();
+
+    int deleteStu(ArrayList<Object> list);
+
+    List<Student> selectOneStu(String stuID);
 }

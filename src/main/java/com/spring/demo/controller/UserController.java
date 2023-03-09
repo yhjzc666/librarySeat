@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -51,14 +53,47 @@ public class UserController {
         return object;
     }
 
+    //查询所有学生
     @ResponseBody
     @RequestMapping(value = "/selectStu")
     public Map SelectStu() {
+        List<Student> result = stuService.selectStuAll();
         JSONObject object = new JSONObject();
         object.put("code", 200);
         object.put("msg", "查询成功!");
-        List<Student> result = stuService.selectStuAll();
         object.put("stuDate", result);
+        return object;
+    }
+    //查询修改单个学生
+    @ResponseBody
+    @RequestMapping(value = "/selectOneStu")
+    public Map selectOneStu(@RequestBody Student stu) {
+        JSONObject object = new JSONObject();
+        object.put("code", 200);
+        object.put("msg", "查询成功!");
+        List<Student> result = stuService.selectOneStu(stu.getStuID());
+        System.out.println(result);
+        object.put("stuDate", result);
+        return object;
+    }
+    //删除学生信息
+    @ResponseBody
+    @RequestMapping(value = "/deleteStu")
+    public Map deleteStu(@RequestBody ArrayList<Object> list) {
+        JSONObject object = new JSONObject();
+        int num = 0;
+//        list.forEach((value)->{
+//            System.out.println(value);
+//            //num = stuService.deleteStu(value);
+//        });
+        num = stuService.deleteStu(list);
+        if(num != 0){
+            object.put("code", 200);
+            object.put("msg", "删除成功!");
+        }else {
+            object.put("code", 300);
+            object.put("msg", "删除失败!");
+        }
         return object;
     }
 }

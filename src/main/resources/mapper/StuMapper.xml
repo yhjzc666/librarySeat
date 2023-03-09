@@ -25,4 +25,15 @@
         select *
         from student
     </select>
+    <select id="selectOneStu" resultType="java.util.Map">
+        select *
+        from student
+        where stuID = #{stuID}
+    </select>
+    <delete id="deleteStu">
+        delete from student where stuID in
+        <foreach item="stuID" collection="list" open="(" separator="," close=")">
+            #{stuID}
+        </foreach>
+    </delete>
 </mapper>

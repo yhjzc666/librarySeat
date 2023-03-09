@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.demo.dao.SeatMapper">
+
+    <select id="selectAllSeat" resultType="com.spring.demo.bean.Seat">
+        select *
+        from seats
+    </select>
+
+    <select id="selectSomeSeat" resultType="com.spring.demo.bean.Seat">
+        select *
+        from seats where grandPID = #{grandPID} <if test="parentID != null">and parentID = #{parentID}</if>
+    </select>
+</mapper>

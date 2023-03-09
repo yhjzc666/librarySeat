@@ -40,7 +40,6 @@
             <if test="StudyTime != null">`StudyTime` = #{StudyTime},</if>
             <if test="State != null">`State` = #{State},</if>
             `Name` = #{Name},
-            `CardID` = #{CardID},
             <if test="LastLoginTime != null">`LastLoginTime` = #{LastLoginTime}</if>
         </set>
         where OpenID = #{openID}

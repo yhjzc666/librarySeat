@@ -6,6 +6,7 @@ import com.spring.demo.service.StuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -30,5 +31,15 @@ public class StuImpl implements StuService {
     @Override
     public List<Student> selectStuAll() {
         return stuMapper.selectStuAll();
+    }
+
+    @Override
+    public int deleteStu(ArrayList<Object> list) {
+        return stuMapper.deleteStu(list);
+    }
+
+    @Override
+    public List<Student> selectOneStu(String stuID) {
+        return stuMapper.selectOneStu(stuID);
     }
 }

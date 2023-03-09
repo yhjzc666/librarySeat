@@ -64,7 +64,6 @@ public class LoginController {
     String AppSecret = "e272d7ebbd50cb3f5183d161fe80d682";  //AppSecre
     @Autowired
     private WxUserService wxUserService;
-
     @ResponseBody
     @RequestMapping(value = "/Xcxlogin")
     public Map Xcxlogin(@RequestBody WxUser user) {
