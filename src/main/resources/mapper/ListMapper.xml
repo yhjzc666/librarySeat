@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.demo.dao.ListMapper">
+    <insert id="bookList" parameterType="Lists">
+        insert into lists (seatID,
+                           ID,
+                           openID,
+                           startTime)
+        values (#{Inf},
+                #{ID},
+                #{userID},
+                #{startTime})
+    </insert>
+
+    <select id="getLists" resultType="com.spring.demo.bean.Lists"
+>select *
+ from lists where OpenID = #{userID}</select>
+
+    <select id="listsSelect" resultType="com.spring.demo.bean.Lists"
+    >select *
+     from lists where OpenID = #{openID}</select>
+
+</mapper>

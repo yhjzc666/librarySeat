@@ -7,10 +7,55 @@
     <select id="selectAllSeat" resultType="com.spring.demo.bean.Seat">
         select *
         from seats
+        order by number
     </select>
 
     <select id="selectSomeSeat" resultType="com.spring.demo.bean.Seat">
         select *
-        from seats where grandPID = #{grandPID} <if test="parentID != null">and parentID = #{parentID}</if>
+        from seats where grandPID = #{grandPID}
+        <if test="parentID != null">and parentID = #{parentID}</if>
+        <if test="number != null">and number = #{number}</if>
+        order by number
     </select>
+
+    <select id="selectWxSeat" resultType="com.spring.demo.bean.Seat">
+        select *
+        from seats where grandPID = #{grandPID}
+        <if test="parentID != null">and parentID = #{parentID}</if>
+        <if test="number != null">and number = #{number}</if> and state = 1
+        order by number
+    </select>
+
+    <!--    <select id="selectOneSeat" resultType="Seat">-->
+    <!--        select *-->
+    <!--        from seats-->
+    <!--        where grandPID = #{grandPID} and parentID = #{parentID} and number = #{number}-->
+    <!--    </select>-->
+
+    <insert id="InsertSeat" parameterType="Seat">
+        insert into seats (seatID,
+                           grandPID,
+                           parentID,
+                           number,
+                           state,
+                           time)
+        values (#{seatID},
+                #{grandPID},
+                #{parentID},
+                #{number},
+                #{state},
+                #{time})
+    </insert>
+    <update id="updateSate" parameterType="String">
+        update seats
+        set state = 3
+        where seatID = #{seatID}
+    </update>
+
+    <select id="getOneSeat" resultType="com.spring.demo.bean.Seat">
+        select *
+        from seats where seatID = #{Inf}
+        and state = 1
+    </select>
+
 </mapper>
