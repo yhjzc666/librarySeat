@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.demo.dao.QRcodeMapper">
+
+    <insert id="insertQRcode" parameterType="com.spring.demo.bean.QRcode">
+        insert into qrcode (ID,
+                            Path,
+                            Time)
+        values (#{id},
+                #{filePath},
+                #{time})
+    </insert>
+
+    <delete id="deleteQRcode">
+        delete
+        from qrcode;
+    </delete>
+
+</mapper>

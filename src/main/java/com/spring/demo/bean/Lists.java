@@ -8,9 +8,16 @@ import lombok.Data;
  */
 @Data
 public class Lists {
+
     private String ID;
     private String seatID;
+    private String number;
+    private String parentID;
+    private String grandPID;
     private String openID;
+    private String state;
+    private String username;
+    private String stuID;
     private String startTime;
     private String finishTime;
 }

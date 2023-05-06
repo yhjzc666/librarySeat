@@ -13,4 +13,7 @@ public interface WxUserService {
 
     int updateUser(WxUser wxUser);
 
+    int insertSyudyTime(String openID, int numList);
+
+    int updateUserStuState(String openID, String state);
 }

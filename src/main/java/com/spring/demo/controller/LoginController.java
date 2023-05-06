@@ -6,11 +6,12 @@ import com.spring.demo.bean.WxUser;
 import com.spring.demo.service.SysUserService;
 import com.spring.demo.service.WxUserService;
 import com.spring.demo.util.JwtUtil;
-import com.spring.demo.util.SystemAttributeUtil;
 import com.spring.demo.util.WeChatUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -23,8 +24,17 @@ import java.util.UUID;
  */
 @Controller
 public class LoginController {
+    /*
+     * 微信小程序  ↓
+     *           ↓
+     *           ↓
+     * */
+    String AppId = "wx27737a0b47366b55";  //公众平台自己的appId
+    String AppSecret = "e272d7ebbd50cb3f5183d161fe80d682";  //AppSecre
     @Autowired
     private SysUserService sysUserService;
+    @Autowired
+    private WxUserService wxUserService;
 
     /*
      * 管理端
@@ -54,16 +64,6 @@ public class LoginController {
         return map;
     }
 
-
-    /*
-     * 微信小程序  ↓
-     *           ↓
-     *           ↓
-     * */
-    String AppId = "wx27737a0b47366b55";  //公众平台自己的appId
-    String AppSecret = "e272d7ebbd50cb3f5183d161fe80d682";  //AppSecre
-    @Autowired
-    private WxUserService wxUserService;
     @ResponseBody
     @RequestMapping(value = "/Xcxlogin")
     public Map Xcxlogin(@RequestBody WxUser user) {
@@ -84,11 +84,10 @@ public class LoginController {
                 userVo.setUserName(user.getUserName());
                 userVo.setAvatarUrl(user.getAvatarUrl());
                 userVo.setOpenID(openid);
-                userVo.setStudyState("0");//0 未预约 1已预约 2正在使用
-                userVo.setDefTime("0");
+                userVo.setStudyState("0");//0 未预约 1已预约 2正在使用userVo.setDefTime("0");
                 userVo.setStudyTime("0");
-                userVo.setState("0"); //0 正常；1封号
-                userVo.setID(SystemAttributeUtil.getUUID());
+                userVo.setDefTime("0");
+                userVo.setState("0"); //0 正常；1封号userVo.setID(SystemAttributeUtil.getUUID());
                 userVo.setFirstLoginTime(new Date(System.currentTimeMillis()));
                 userVo.setLastLoginTime(new Date(System.currentTimeMillis()));
                 WxUser us = wxUserService.queryByOpenId(openid);
@@ -96,6 +95,7 @@ public class LoginController {
                     //不是首次登录，更新用户信息
                     userVo.setOpenID(us.getOpenID());
                     userVo.setName(us.getName());
+                    userVo.setStuID(us.getStuID());
                     userVo.setCardID(us.getCardID());
                     wxUserService.updateUser(userVo);
                 } else {

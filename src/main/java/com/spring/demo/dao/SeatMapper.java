@@ -27,4 +27,8 @@ public interface SeatMapper {
     List<Seat> getOneSeat(Map inf);
 
     List<Seat> selectWxSeat(Seat seat);
+
+    int updateSeatState(String seatId, String state);
+
+    List<Seat> SelectOneSeat();
 }

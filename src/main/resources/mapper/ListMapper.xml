@@ -7,19 +7,55 @@
         insert into lists (seatID,
                            ID,
                            openID,
-                           startTime)
+                           startTime,
+                           state)
         values (#{Inf},
                 #{ID},
                 #{userID},
-                #{startTime})
+                #{startTime},
+                0)
     </insert>
 
     <select id="getLists" resultType="com.spring.demo.bean.Lists"
->select *
- from lists where OpenID = #{userID}</select>
+    >select *
+     from lists
+     where OpenID = #{userID}
+       and FinishTIme is null</select>
 
     <select id="listsSelect" resultType="com.spring.demo.bean.Lists"
     >select *
-     from lists where OpenID = #{openID}</select>
+     from lists
+              left join seats on seats.seatID = lists.seatID
+     where lists.OpenID = #{openID}
+     ORDER BY lists.FinishTime </select>
 
+    <select id="listsALlSelect" resultType="com.spring.demo.bean.Lists"
+    >select *
+     from lists
+              left join seats on seats.seatID = lists.seatID
+              left join student on lists.openID = student.openID</select>
+
+    <update id="updateLists" parameterType="String">
+        update lists
+        set FinishTime = #{times},
+            State      = #{listState}
+        where ID = #{listId}
+    </update>
+
+    <select id="listsSelectBookIng" resultType="com.spring.demo.bean.Lists"
+    >select *
+     from lists
+     where State != 2 and lists.openID = #{openID}</select>
+
+    <update id="updateListStates" parameterType="String">
+        update lists
+        set <if test="finishTime != null">FinishTime = #{finishTime},</if>State = #{state}
+        where ID = #{ID}
+    </update>
+
+    <select id="selectListStates" resultType="com.spring.demo.bean.Lists"
+    >select *
+     from lists
+     where state = 0
+        or state = 1 and lists.openID = #{openID}</select>
 </mapper>

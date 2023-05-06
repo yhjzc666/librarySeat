@@ -5,15 +5,15 @@ package com.spring.demo.controller;
  * @version 1.0
  */
 
-import com.spring.demo.bean.Systems;
 import com.spring.demo.service.SystemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
 @Controller
 public class SystemController {
@@ -24,7 +24,6 @@ public class SystemController {
     @RequestMapping(value = "/updateState")
     public Map updateSate(@RequestBody String state){
         int reslut = systemService.updateState(state);
-        System.out.println(reslut);
         Map<Object,String> map = new HashMap<>();
         if(reslut == 1){
             map.put("code","200");

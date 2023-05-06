@@ -23,4 +23,6 @@ public interface StuMapper {
     int deleteStu(ArrayList<Object> list);
 
     List<Student> selectOneStu(String stuID);
+
+    int updateStu(Student stu);
 }

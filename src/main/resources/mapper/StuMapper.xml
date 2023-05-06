@@ -21,11 +21,11 @@
         where stuID = #{stuID}
     </select>
 
-    <select id="selectStuAll" resultType="java.util.Map">
+    <select id="selectStuAll" resultType="Student">
         select *
         from student
     </select>
-    <select id="selectOneStu" resultType="java.util.Map">
+    <select id="selectOneStu" resultType="Student">
         select *
         from student
         where stuID = #{stuID}
@@ -36,4 +36,12 @@
             #{stuID}
         </foreach>
     </delete>
+
+    <update id="updateStu" parameterType="com.spring.demo.bean.Student">
+        update student
+        <set>
+            state = #{state}
+        </set>
+        where student.stuID = #{stuID}
+    </update>
 </mapper>

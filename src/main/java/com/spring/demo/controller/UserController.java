@@ -10,9 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author yuhaojie on 2023/1/9.
@@ -27,7 +25,7 @@ public class UserController {
     //添加学生信息
     @ResponseBody
     @RequestMapping(value = "/insertStu")
-    public Map InsertStu(@RequestBody Student stu) {
+    public JSONObject insertStu(@RequestBody Student stu) {
         JSONObject object = new JSONObject();
         Student result = stuService.selectStu(stu);
         if (result != null) {
@@ -35,7 +33,7 @@ public class UserController {
             object.put("msg", "添加失败!");
             return object;
         }
-        if (stu.getState().equals("正常")) {
+        if ("正常".equals(stu.getState())) {
             stu.setState("1");//正常
         } else {
             stu.setState("2");//暂封
@@ -53,44 +51,67 @@ public class UserController {
         return object;
     }
 
+    @ResponseBody
+    @RequestMapping(value = "/updateStus")
+    public JSONObject updateStus(@RequestBody Student stu) {
+        JSONObject object = new JSONObject();
+        if ("正常".equals(stu.getState())) {
+            stu.setState("1");
+        }
+        if ("暂封".equals(stu.getState())) {
+            stu.setState("2");
+        }
+        int num = stuService.updateStu(stu);
+        object.put("code", 200);
+        object.put("msg", "添加成功!");
+        object.put("userInfo", stu);
+        return object;
+    }
+
     //查询所有学生
     @ResponseBody
     @RequestMapping(value = "/selectStu")
-    public Map SelectStu() {
+    public JSONObject selectStu() {
         List<Student> result = stuService.selectStuAll();
+        for (Student lists : result
+        ) {
+            if ("1".equals(lists.getState())) {
+                lists.setState("正常");
+            }
+            if ("2".equals(lists.getState())) {
+                lists.setState("暂封");
+            }
+        }
         JSONObject object = new JSONObject();
         object.put("code", 200);
         object.put("msg", "查询成功!");
         object.put("stuDate", result);
         return object;
     }
+
     //查询修改单个学生
     @ResponseBody
     @RequestMapping(value = "/selectOneStu")
-    public Map selectOneStu(@RequestBody Student stu) {
+    public JSONObject selectOneStu(@RequestBody Student stu) {
         JSONObject object = new JSONObject();
         object.put("code", 200);
         object.put("msg", "查询成功!");
         List<Student> result = stuService.selectOneStu(stu.getStuID());
-        System.out.println(result);
         object.put("stuDate", result);
         return object;
     }
+
     //删除学生信息
     @ResponseBody
     @RequestMapping(value = "/deleteStu")
-    public Map deleteStu(@RequestBody ArrayList<Object> list) {
+    public JSONObject deleteStu(@RequestBody ArrayList<Object> list) {
         JSONObject object = new JSONObject();
-        int num = 0;
-//        list.forEach((value)->{
-//            System.out.println(value);
-//            //num = stuService.deleteStu(value);
-//        });
+        int num;
         num = stuService.deleteStu(list);
-        if(num != 0){
+        if (num != 0) {
             object.put("code", 200);
             object.put("msg", "删除成功!");
-        }else {
+        } else {
             object.put("code", 300);
             object.put("msg", "删除失败!");
         }

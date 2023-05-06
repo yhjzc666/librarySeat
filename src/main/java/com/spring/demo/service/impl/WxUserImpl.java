@@ -32,4 +32,15 @@ public class WxUserImpl implements WxUserService {
         return wxuserMapper.updateUser(wxUser);
 
     }
+
+    @Override
+    public int insertSyudyTime(String openID, int numList) {
+
+        return wxuserMapper.insertSyudyTime(openID, numList);
+    }
+
+    @Override
+    public int updateUserStuState(String openID, String state) {
+        return wxuserMapper.updateUserStuState(openID, state);
+    }
 }

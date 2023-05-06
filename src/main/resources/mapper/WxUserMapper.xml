@@ -6,11 +6,12 @@
     <select id="queryByOpenId" resultType="WxUser">
         select *
         from user
-        where OpenID = #{openID}
+                 left join student b on user.OpenID = b.openID
+        where user.OpenID = #{openID}
     </select>
 
     <insert id="insertUser" parameterType="WxUser">
-        insert into user (ID,
+        insert into user (OpenID,
                           UserName,
                           AvatarUrl,
                           StudyState,
@@ -41,6 +42,22 @@
             <if test="State != null">`State` = #{State},</if>
             `Name` = #{Name},
             <if test="LastLoginTime != null">`LastLoginTime` = #{LastLoginTime}</if>
+        </set>
+        where OpenID = #{openID}
+    </update>
+
+    <update id="insertSyudyTime" parameterType="WxUser">
+        update user
+        <set>
+            `StudyTime` = StudyTime+#{numList}
+        </set>
+        where OpenID = #{openID}
+    </update>
+
+    <update id="updateUserStuState" parameterType="WxUser">
+        update user
+        <set>
+            `StudyState` = #{state}
         </set>
         where OpenID = #{openID}
     </update>

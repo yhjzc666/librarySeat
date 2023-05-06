@@ -42,4 +42,9 @@ public class StuImpl implements StuService {
     public List<Student> selectOneStu(String stuID) {
         return stuMapper.selectOneStu(stuID);
     }
+
+    @Override
+    public int updateStu(Student stu) {
+        return stuMapper.updateStu(stu);
+    }
 }

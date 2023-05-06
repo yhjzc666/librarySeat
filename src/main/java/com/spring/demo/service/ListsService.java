@@ -10,4 +10,14 @@ import java.util.List;
  */
 public interface ListsService {
     List<Lists> listsSelect(Lists lists);
+
+    List<Lists> listsALlSelect();
+
+    int updateLists(String listId, String times, String listState);
+
+    List<Lists> listsSelectBookIng(Lists lists);
+
+    int updateListStates(Lists lists);
+
+    List<Lists> selectListStates(Lists lists);
 }

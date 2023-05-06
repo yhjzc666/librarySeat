@@ -54,8 +54,23 @@
 
     <select id="getOneSeat" resultType="com.spring.demo.bean.Seat">
         select *
-        from seats where seatID = #{Inf}
-        and state = 1
+        from seats
+        where seatID = #{Inf}
+          and state = 1
+    </select>
+
+    <update id="updateSeatState" parameterType="String">
+        update seats
+        set state = #{state}
+        where seatID = #{seatId}
+    </update>
+
+    <select id="SelectOneSeat" resultType="com.spring.demo.bean.Seat">
+        select *
+        from seats
+        where state = 1
+        ORDER BY RAND()
+        LIMIT 1
     </select>
 
 </mapper>

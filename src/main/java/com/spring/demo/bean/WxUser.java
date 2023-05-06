@@ -1,6 +1,5 @@
 package com.spring.demo.bean;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
@@ -29,4 +28,6 @@ public class WxUser implements Serializable {
     private String DefTime; //违规次数
     private Date FirstLoginTime;  //第一次登录时间
     private Date LastLoginTime;  //最后一次登录时间
+    private String stuID;
+
 }

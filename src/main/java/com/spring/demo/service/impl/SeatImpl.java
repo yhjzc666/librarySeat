@@ -21,6 +21,7 @@ public class SeatImpl implements SeatService {
     private SeatMapper seatMapper;
     @Autowired
     private ListMapper listMapper;
+
     @Override
     public List<Seat> selectAllSeat() {
         return seatMapper.selectAllSeat();
@@ -64,5 +65,15 @@ public class SeatImpl implements SeatService {
     @Override
     public List<Lists> getLists(Map inf) {
         return listMapper.getLists(inf);
+    }
+
+    @Override
+    public int updateSeatState(String seatId, String state) {
+        return seatMapper.updateSeatState(seatId, state);
+    }
+
+    @Override
+    public List<Seat> SelectOneSeat() {
+        return seatMapper.SelectOneSeat();
     }
 }

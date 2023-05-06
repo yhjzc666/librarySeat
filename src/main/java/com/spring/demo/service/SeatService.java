@@ -28,4 +28,8 @@ public interface SeatService {
     List<Seat> selectWxSeat(Seat seat);
 
     List<Lists> getLists(Map inf);
+
+    int updateSeatState(String seatId, String state);
+
+    List<Seat> SelectOneSeat();
 }

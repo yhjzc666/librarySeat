@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.demo.dao.QuestionMapper">
+
+    <insert id="InsertQuestion" parameterType="com.spring.demo.bean.Question">
+        insert into question (ID,
+                              State,
+                              Question,
+                              Reply,
+                              OpenID,
+                              SubTime)
+        values (#{ID},
+                #{state},
+                #{question},
+                #{reply},
+                #{openID},
+                #{subTime})
+    </insert>
+
+    <select id="QuestionShow" resultType="com.spring.demo.bean.Question"
+    >select *
+     from question
+     where OpenID = #{openID}
+    </select>
+
+    <select id="questionAllShow" resultType="com.spring.demo.bean.Question"
+    >select *
+     from question
+              left join student s on question.OpenID = s.openID
+     where question.state != 3
+    </select>
+    <update id="replyQuestion" parameterType="com.spring.demo.bean.Question">
+        update question
+        <set>
+            Reply = #{reply},
+            RepTime = #{repTime},
+            State = 2
+        </set>
+        where question.ID = #{ID}
+    </update>
+</mapper>
